@@ -3,6 +3,9 @@ package Controllers
 import "github.com/gin-gonic/gin"
 
 
-func GetMonthData(c *gin.Context){
+func GetDashBoard(c *gin.Context){
+	
+}
+func AddMonthData(c *gin.Context){
 	
 }

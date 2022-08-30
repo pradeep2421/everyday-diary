@@ -1,8 +1,7 @@
 package main
 
-import (
-	"fmt"
-)
+import "backend/Routers"
 func main(){
-	fmt.Println("Hellow")
+	r := Routers.SetupRouter()
+	r.Run()
 }

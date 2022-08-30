@@ -15,3 +15,7 @@ func DeleteTemplate(c *gin.Context) {
 	
 	
 }
+func GetAllTemplates(c *gin.Context) {
+	
+	
+}
