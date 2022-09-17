@@ -11,7 +11,7 @@ var SugarLogger *zap.SugaredLogger
 // 	SugarLogger = logger.Sugar()
 // }
 func InitializeLogger() {
-	writeSyncer := getLogWriter()
+    writeSyncer := getLogWriter()
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 

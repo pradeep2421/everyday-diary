@@ -3,7 +3,7 @@ package main
 import (
 	"backend/config"
 	"backend/models"
-	Routers "backend/routers"
+	"backend/routers"
 	"backend/utils"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -26,7 +26,7 @@ func main(){
 	utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
 	return
 }
-	r := Routers.SetupRouter()
+	r := routers.SetupRouter()
 	
 	r.Run()
 	
