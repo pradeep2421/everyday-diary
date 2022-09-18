@@ -2,31 +2,23 @@ package main
 
 import (
 	"backend/config"
+	"backend/initializers"
 	"backend/routers"
 	"backend/utils"
 
 	_ "github.com/go-sql-driver/mysql"
-
-	"github.com/jinzhu/gorm"
-	"go.uber.org/zap"
 )
 func init(){ 
 	utils.InitializeLogger()
+	initializers.LoadEnvVariables();
 
 }
-var err error
+
+
 func main(){
-	config.DB, err = gorm.Open("mysql", config.DbURL(config.BuildDBConfig()))
-	if err != nil {
-		utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
-	}
-
- if err != nil {
-	utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
-	return
-}
+	config.ConnectToDB(); 
 	r := routers.SetupRouter()
-	
+
 	r.Run()
 	
 }

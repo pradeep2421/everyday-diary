@@ -12,10 +12,13 @@ func SetupRouter() *gin.Engine {
 	{
 		grp2 := grp1.Group("/user")
 		{
-			grp2.GET("/profile?id", controllers.GetUserProfile)
-			grp2.POST("/register", controllers.RegisterUser)
+			
+			grp2.POST("/create", controllers.CreateUser)
 			grp2.POST("/login", controllers.LoginUser)
-			grp2.PATCH("/editProfile", controllers.EditUserProfile)
+			grp2.PATCH("/update/:id", controllers.UpdateUser)
+			grp2.GET("/view", controllers.ViewUser)
+			grp2.GET("/singleuser/:id", controllers.SingleUser)
+			grp2.DELETE("/delete/:id", controllers.DeleteUser)
 		}
 		grp3 := grp1.Group("/diaryPage")
 		{
@@ -52,6 +55,14 @@ func SetupRouter() *gin.Engine {
 		{
 			grp7.GET("/add", controllers.AddMonthData)
 			grp7.GET("/month", controllers.GetDashBoard)
+		}
+		grp8 := grp1.Group("/note")
+		{
+			grp8.POST("/create", controllers.CreateNote)
+			grp8.PATCH("/update/:id", controllers.UpdateNote)
+			grp8.DELETE("/delete/:id", controllers.DeleteNote)
+			grp8.GET("/view", controllers.ViewNote)
+			grp8.GET("/singlenote/:id",controllers.SingleNote)
 		}
 	}
 	return r
