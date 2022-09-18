@@ -2,7 +2,6 @@ package main
 
 import (
 	"backend/config"
-	"backend/models"
 	"backend/routers"
 	"backend/utils"
 
@@ -21,7 +20,7 @@ func main(){
 	if err != nil {
 		utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
 	}
- err = config.DB.AutoMigrate(&models.User{}).Error
+
  if err != nil {
 	utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
 	return
