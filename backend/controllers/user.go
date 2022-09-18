@@ -3,22 +3,30 @@ package controllers
 import (
 	"backend/controllers/services"
 	"backend/models"
+	"backend/utils"
+	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
-
+var SecretKey = "dracarys";
 
 func CreateUser(c *gin.Context) {
 	var user models.User;
 	c.Bind(&user);
+	password ,_:= bcrypt.GenerateFromPassword([]byte(user.Password),14);
+	user.Password = string(password)
 	err := services.CreateUser(&user);
 
 	if(err != nil){
 		c.AbortWithStatusJSON(400,gin.H{"message": "cannot create user","error":err});
 		return;
 	}
+	
 	c.JSON(200,gin.H{"message":"user created successfull","user":user});
 	
 }
@@ -31,14 +39,21 @@ func LoginUser(c *gin.Context) {
 		c.AbortWithStatusJSON(400,gin.H{"message":"database error","error":err});
 		return;
 	}
-
-	validUser := (user.Name != ""); 
-	if validUser {
-		c.JSON(200,gin.H{"success":validUser, "message":"you are logged in!!","user":user});
+		claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"Issuer": strconv.Itoa(int(user.ID)),
+			"ExpiresAt": time.Now().Add(time.Hour * 24).Unix(),
+		})
+		token, err1 := claims.SignedString([]byte(SecretKey));
+		if (err1 != nil){
+			utils.SugarLogger.Error(err1);
+			c.AbortWithStatusJSON(400,gin.H{"message":"Internal Server Error","error":err1});
 		return;
-	}
-	c.JSON(200, gin.H{"success":validUser,"message":"name or password  is incorrect"});
+		}
+		c.SetSameSite(http.SameSiteLaxMode);
+		c.SetCookie("jwt", token, 60*60*24, "", "", false, true)
 
+
+		c.JSON(200,gin.H{"success":true, "message":"you are logged in!!","user":user});
 
 }
 

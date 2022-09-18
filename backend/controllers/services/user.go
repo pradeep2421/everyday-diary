@@ -3,7 +3,9 @@ package services
 import (
 	"backend/config"
 	"backend/models"
-	"fmt"
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func CreateUser(user *models.User) (err error) {
@@ -12,10 +14,19 @@ func CreateUser(user *models.User) (err error) {
 	return err
 }
 func LoginUser(login *models.Login) (user models.User,err error) {
-
-	config.DB.Where(&models.User{Name: login.Name, Password: login.Password}).First(&user)
-	fmt.Println(user);
-	return user, err
+	config.DB.Where("name = ?",login.Name).First(&user);
+	
+	if(user.ID ==0){
+		err = errors.New("user not Found");
+		
+	
+		return user, err;
+	}
+	if err = bcrypt.CompareHashAndPassword([]byte(user.Password),[]byte(login.Password)); err !=nil {
+		return user ,err;
+	}
+	
+	return user, err;
 }
 
 func UpdateUser(user *models.User) (err error){

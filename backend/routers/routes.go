@@ -2,12 +2,14 @@ package routers
 
 import (
 	"backend/controllers"
+	"backend/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+	
 	grp1 := r.Group("/diary")
 	{
 		grp2 := grp1.Group("/user")
@@ -17,7 +19,7 @@ func SetupRouter() *gin.Engine {
 			grp2.POST("/login", controllers.LoginUser)
 			grp2.PATCH("/update/:id", controllers.UpdateUser)
 			grp2.GET("/view", controllers.ViewUser)
-			grp2.GET("/singleuser/:id", controllers.SingleUser)
+			grp2.GET("/singleuser/:id",middleware.RequireAuth, controllers.SingleUser)
 			grp2.DELETE("/delete/:id", controllers.DeleteUser)
 		}
 		grp3 := grp1.Group("/diaryPage")
