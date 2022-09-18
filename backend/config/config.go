@@ -22,7 +22,7 @@ func BuildDBConfig() *DBConfig {
 		Host:     "localhost",
 		Port:     3306,
 		User:     "root",
-		Password: "Kund@n2421",
+		Password: "secret",
 		DBName:   "diary",
 	}
 	return &dbConfig
