@@ -53,6 +53,14 @@ func SetupRouter() *gin.Engine {
 			grp7.GET("/add", controllers.AddMonthData)
 			grp7.GET("/month", controllers.GetDashBoard)
 		}
+		grp8 := grp1.Group("/note")
+		{
+			grp8.POST("/create", controllers.CreateNote)
+			grp8.PATCH("/update/:id", controllers.UpdateNote)
+			grp8.DELETE("/delete/:id", controllers.DeleteNote)
+			grp8.GET("/view", controllers.ViewNote)
+			grp8.GET("/singlenote/:id",controllers.SingleNote)
+		}
 	}
 	return r
 }

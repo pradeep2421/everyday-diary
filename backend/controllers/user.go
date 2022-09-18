@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"backend/controllers/services"
 	"backend/utils"
 	"fmt"
 
@@ -14,8 +15,10 @@ func RegisterUser(c *gin.Context) {
 	
 }
 func LoginUser(c *gin.Context) {
+	
 	fmt.Println("Hello From Login")
 	// fmt.Println("Hello From Login")
+	services.CreateUser();
 	utils.SugarLogger.Warn("This is a Drile")
 }
 

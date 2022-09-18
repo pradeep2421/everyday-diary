@@ -10,7 +10,7 @@ CREATE TABLE `simple_table` (
 );
 
 CREATE TABLE `merchant_periods` (
-  `id` int PRIMARY KEY,
+  `id` int PRIMARY KEY, 
   `merchant_id` int,
   `country_code` int,
   `start_date` datetime,
