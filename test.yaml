@@ -1,0 +1,24 @@
+someApp:
+  firstString: |
+    this is a string which
+    is not written in a single
+    line but is written on multiple lines
+  secondString: simple string
+  thirdString: >
+    this is a string which
+    is not written in a single
+    line but is written on multiple lines
+  firstObject:
+    simpleObject: 100
+  AList:
+    - oneEntry: 11
+  SimpleList: ["aa", 1.2, "232"]
+  otherList:
+    - 1
+    - 2
+    - 3
+    - "4"
+    - abe
+  #use of environmental variables use $PORT
+  #PLACEHODERS
+  placeholder: { { .Values } }
