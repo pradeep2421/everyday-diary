@@ -19,9 +19,9 @@ func LoginUser(login *models.Login) (user models.User,err error) {
 	if(user.ID ==0){
 		err = errors.New("user not Found");
 		
-	
 		return user, err;
 	}
+	
 	if err = bcrypt.CompareHashAndPassword([]byte(user.Password),[]byte(login.Password)); err !=nil {
 		return user ,err;
 	}

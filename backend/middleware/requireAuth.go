@@ -6,6 +6,7 @@ import (
 	"backend/models"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -32,23 +33,25 @@ func RequireAuth(c *gin.Context){
 		return []byte(controllers.SecretKey), nil
 	})
 	// fmt.Println(token,err);
-	fmt.Println("Hello from Middleware");
+	
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		
 		if float64(time.Now().Unix()) > claims["ExpiresAt"].(float64){
-			fmt.Println("Hello from Middleware");
+		
 			c.AbortWithStatus(http.StatusUnauthorized);
 		}
 		var user models.User
 		config.DB.First(&user,claims["Issuer"]);
-		fmt.Println("Hello from Middleware");	
-		if( user.ID ==0){
-			fmt.Println("Hello from Middleware");
+	
+		id ,_:= strconv.ParseUint( c.Param("id"),10,64);
+		
+		if( user.ID != uint(id) ){
+		
 			c.AbortWithStatus(http.StatusUnauthorized);
 
 		}
 		c.Set("user",user);
-		fmt.Println("Hello from Middleware");
+	
 		c.Next();
 	} else {
 		fmt.Println("NO Authorization");
