@@ -14,10 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: changing directory
         run: |
-          pwd
-          ls
           cd backend
-      - run: pwd
+      - name: show the directory
+        run: pwd
       - uses: actions/setup-go@v2
         with:
           stable: "false"
