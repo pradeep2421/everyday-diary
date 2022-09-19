@@ -11,9 +11,7 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
-      - name: simple Hello
-        run: echo "Hello World"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         run: pwd
 
       # - name: Set up Go
