@@ -15,6 +15,7 @@ jobs:
       - name: changing directory
         run: |
           cd backend
+          pwd
       - name: show the directory
         run: pwd
       - uses: actions/setup-go@v2
