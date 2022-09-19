@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: pwd
+      - run: ls
       - run: cd backend
       - run: pwd
       - uses: actions/setup-go@v2
