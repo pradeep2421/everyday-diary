@@ -1,0 +1,34 @@
+name: ci-test-cases
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: pwd
+      - run: cd backend
+      - run: pwd
+      - uses: actions/setup-go@v2
+        with:
+          stable: "false"
+          go-version: "1.19"
+      - name: tests
+        run: go test ./...
+
+      # - name: Set up Go
+      #   uses: actions/set up-go@v3
+      #   with:
+      #     go-version: 1.18
+      #   id: go
+      # - name: check out code in the go module directory
+      #   run: actions/checkout@v2
+
+      # - name: Test
+      #   run: make test
