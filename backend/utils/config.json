@@ -1,0 +1,13 @@
+{
+  "db": {
+    "driver": "mysql",
+    "name": "diary",
+    "port": "3306",
+    "password": "secret",
+    "user": "admin"
+  },
+  "server": {
+    "port": "3000",
+    "address": "0.0.0.0:3030"
+  }
+}
