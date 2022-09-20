@@ -3,7 +3,6 @@ package config
 import (
 	"backend/utils"
 	"fmt"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -22,12 +21,13 @@ type DBConfig struct {
 }
 
 func BuildDBConfig() *DBConfig {
+
 	dbConfig := DBConfig{
-		Host:     os.Getenv("DB_HOST"),
+		Host:    "localhost",
 		Port:     3306,
-		User:     os.Getenv("DB_USER"),
-		Password: os.Getenv("DB_PASSWORD"),
-		DBName:   os.Getenv("DB_DATABASE_NAME"),
+		User:     "root",
+		Password: "secret",
+		DBName:   "diary",
 	}
 	return &dbConfig
 }
@@ -43,7 +43,15 @@ func DbURL(dbConfig *DBConfig) string {
 }
 var err error
 func ConnectToDB(){
-	DB, err = gorm.Open("mysql", DbURL(BuildDBConfig()))
+	config, err := utils.LoadConfig("./../utils");
+	fmt.Println(config);
+	if err !=nil {
+		utils.SugarLogger.Error(err);
+		utils.SugarLogger.Error("error in loading config file with viper");
+	}
+
+
+	DB, err = gorm.Open(config.Db.DbDriver, DbURL(BuildDBConfig()))
 	if err != nil {
 		utils.SugarLogger.Error("DataBase is not connected",zap.Error(err))
 	}

@@ -2,13 +2,11 @@ package main
 
 import (
 	"backend/config"
-	"backend/initializers"
 	"backend/models"
 	"backend/utils"
 )
 
 func init() {
-	initializers.LoadEnvVariables();
 
 	utils.InitializeLogger();
 }
