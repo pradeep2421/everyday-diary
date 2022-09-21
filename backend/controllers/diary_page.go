@@ -1,10 +1,14 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 
 func AddDiaryPage(c *gin.Context) {
-	
+	fmt.Println("Add Diary Page controller method");
 	
 }
 
