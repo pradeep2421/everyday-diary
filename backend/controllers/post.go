@@ -1,15 +1,9 @@
 package controllers
 
-import (
-	"fmt"
-
-	"github.com/gin-gonic/gin"
-)
+import "github.com/gin-gonic/gin"
 
 
 func AddPost(c *gin.Context){
-
-	fmt.Println("Hellow");
 }
 func EditPost(c *gin.Context){
 	
