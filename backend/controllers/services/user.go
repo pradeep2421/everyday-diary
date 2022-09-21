@@ -14,7 +14,7 @@ func CreateUser(user *models.User) (err error) {
 	return err
 }
 func LoginUser(login *models.Login) (user models.User,err error) {
-	config.DB.Where("name = ?",login.Name).First(&user);
+	config.DB.Where("name = ?",login.Email).First(&user);
 	
 	if(user.ID ==0){
 		err = errors.New("user not Found");

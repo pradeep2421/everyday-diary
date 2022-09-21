@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"backend/controllers/services"
+	"backend/controllers/validation"
 	"backend/models"
 	"backend/utils"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -19,6 +21,8 @@ func CreateUser(c *gin.Context) {
 	var user models.User;
 	c.Bind(&user);
 	password ,_:= bcrypt.GenerateFromPassword([]byte(user.Password),14);
+
+	
 	user.Password = string(password)
 	err := services.CreateUser(&user);
 
@@ -34,6 +38,12 @@ func LoginUser(c *gin.Context) {
 	var login models.Login;
 	
 	c.Bind(&login);
+
+	if err = validation.LoginValidation(login);err != nil{
+		fmt.Println(err);
+	};
+
+	
 	user ,err := services.LoginUser(&login);
 	if err != nil{
 		c.AbortWithStatusJSON(400,gin.H{"message":"database error","error":err});
