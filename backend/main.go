@@ -24,6 +24,6 @@ func main(){
 	config.ConnectToDB(); 
 	r := routers.SetupRouter()
 
-	r.Run(":3030")
+	r.Run(":3000")
 	
 }
