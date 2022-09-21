@@ -4,6 +4,7 @@ import "github.com/gin-gonic/gin"
 
 
 func AddPost(c *gin.Context){
+
 }
 func EditPost(c *gin.Context){
 	
