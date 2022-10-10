@@ -21,7 +21,6 @@ func CreateUser(c *gin.Context) {
 	var user models.User;
 	c.Bind(&user);
 	password ,_:= bcrypt.GenerateFromPassword([]byte(user.Password),14);
-	fmt.Println("Hello From CreateUser")
 	
 	user.Password = string(password)
 	err := services.CreateUser(&user);
@@ -30,7 +29,7 @@ func CreateUser(c *gin.Context) {
 		c.AbortWithStatusJSON(400,gin.H{"message": "cannot create user","error":err});
 		return;
 	}
-	
+		fmt.Println("Hello Again")
 	c.JSON(200,gin.H{"message":"user created successfull","user":user});
 	
 }
