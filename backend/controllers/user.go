@@ -21,7 +21,7 @@ func CreateUser(c *gin.Context) {
 	var user models.User;
 	c.Bind(&user);
 	password ,_:= bcrypt.GenerateFromPassword([]byte(user.Password),14);
-
+	fmt.Println("Hello From CreateUser")
 	
 	user.Password = string(password)
 	err := services.CreateUser(&user);
